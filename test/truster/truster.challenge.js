@@ -35,7 +35,7 @@ describe("[Challenge] Truster", function () {
     /** CODE YOUR EXPLOIT HERE  */
     /**
      * solution:
-     * TrusterLenderPool 沒有檢查 target address 就直接執行 functionCall，我們可以另外寫一個合約去呼叫flashLoan，執行 ERC20 token approve function 允許 attacker 轉移 pool 中所有餘額。
+     * TrusterLenderPool 沒有檢查 borrowAmount > 0 ，也沒有檢查 target address 就直接執行 functionCall，我們可以另外寫一個合約去呼叫 flashLoan 借 0 borrowAmount，然後functionCall的內容其實是執行 ERC20 token approve function 允許 attacker 轉移 pool 中所有餘額，之後在把錢轉給 attacker。
      */
 
     const TrusterLenderPoolAttacker = await ethers.getContractFactory(
